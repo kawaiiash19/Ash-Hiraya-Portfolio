@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Academic & IT Portfolio</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap">
+<style>
+/* Layout: floating pill nav, soft-pink gradient hero, rounded cards that expand, filter chips, and a request builder */
+:root{
+  --bg:#FFF4F8; --bg2:#FFE6F0; --surface:#FFFFFF; --fg:#3B1D2E; --muted:#86627A; --line:#F6D3E2;
+  --accent:#E6407F; --accent2:#FF8FB8; --accent-soft:#FFE1EC; --on-accent:#FFFFFF;
+  --ok:#1E7A4D; --ok-soft:#DDF5E7; --warn:#A8580E; --warn-soft:#FFEBD3;
+  --shadow:0 10px 30px rgba(230,64,127,.12); --shadow-h:0 16px 40px rgba(230,64,127,.22);
+  --display:'Sora',system-ui,sans-serif; --body:'Plus Jakarta Sans',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1C0E16; --bg2:#2A1522; --surface:#271420; --fg:#FCEAF2; --muted:#C79BB1; --line:#43243A;
+  --accent:#FF74A9; --accent2:#C94A86; --accent-soft:#3F1B30; --on-accent:#2A0F1E;
+  --ok:#7FD9A5; --ok-soft:#173A29; --warn:#FFC28A; --warn-soft:#3F2A14;
+  --shadow:0 10px 30px rgba(0,0,0,.35); --shadow-h:0 16px 40px rgba(255,116,169,.2); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1C0E16; --bg2:#2A1522; --surface:#271420; --fg:#FCEAF2; --muted:#C79BB1; --line:#43243A;
+  --accent:#FF74A9; --accent2:#C94A86; --accent-soft:#3F1B30; --on-accent:#2A0F1E;
+  --ok:#7FD9A5; --ok-soft:#173A29; --warn:#FFC28A; --warn-soft:#3F2A14;
+  --shadow:0 10px 30px rgba(0,0,0,.35); --shadow-h:0 16px 40px rgba(255,116,169,.2); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{background:var(--bg);color:var(--fg);font:16px/1.65 var(--body);padding-block:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.wrap{max-width:1000px;margin:0 auto}
+a{color:var(--accent)}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+/* nav */
+.nav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 10px);z-index:20;display:flex;align-items:center;gap:6px;margin-top:10px;padding:8px 8px 8px 18px;background:color-mix(in srgb,var(--surface) 82%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;box-shadow:var(--shadow)}
+.logo{font:800 15px var(--display);color:var(--accent);margin-right:auto;white-space:nowrap}
+.nav a.l{text-decoration:none;color:var(--muted);font-weight:600;font-size:14px;padding:8px 14px;border-radius:999px;transition:.2s}
+.nav a.l:hover{color:var(--fg);background:var(--accent-soft)}
+.nav a.l.on{background:var(--accent);color:var(--on-accent)}
+.theme{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--accent-soft);font-size:16px;line-height:1}
+@media (max-width:720px){.nav a.l{display:none}.nav{padding-left:16px}}
+/* hero */
+.hero{position:relative;margin-top:22px;padding:64px 40px;border-radius:32px;overflow:hidden;background:radial-gradient(circle at 12% 18%,var(--accent2) 0,transparent 42%),radial-gradient(circle at 92% 90%,var(--bg2) 0,transparent 55%),var(--accent-soft);border:1px solid var(--line)}
+.eyebrow{display:inline-block;font:700 12px var(--body);letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border-radius:999px;background:var(--surface);color:var(--accent);box-shadow:var(--shadow)}
+h1{font:800 clamp(2.3rem,7vw,4.2rem)/1.04 var(--display);margin:20px 0 16px;letter-spacing:-.02em;text-wrap:balance}
+.lead{max-width:56ch;color:var(--muted);font-size:1.1rem;margin:0}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;border:2px solid var(--accent);transition:transform .2s,box-shadow .2s,background .2s}
+.btn.p{background:var(--accent);color:var(--on-accent);box-shadow:var(--shadow)}
+.btn.s{background:transparent;color:var(--accent)}
+.btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-h)}
+.stats{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.stat{padding:12px 18px;border-radius:18px;background:var(--surface);box-shadow:var(--shadow)}
+.stat b{display:block;font:800 1.6rem/1.1 var(--display);color:var(--accent)}
+.stat span{font-size:.82rem;color:var(--muted);font-weight:600}
+/* sections */
+section{padding-top:68px}
+h2{font:800 clamp(1.6rem,4vw,2.2rem)/1.15 var(--display);letter-spacing:-.015em;margin:0 0 8px}
+.sub{color:var(--muted);margin:0 0 24px;max-width:60ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.fchip{padding:9px 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);font-weight:600;font-size:14px;color:var(--muted);transition:.2s}
+.fchip:hover{border-color:var(--accent);color:var(--accent)}
+.fchip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);box-shadow:var(--shadow)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:18px}
+.card{display:flex;flex-direction:column;gap:10px;min-width:0;padding:22px;background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s,border-color .25s}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-h);border-color:var(--accent2)}
+.card h3{font:700 1.08rem/1.35 var(--display);margin:0;overflow-wrap:anywhere}
+.card p{margin:0;color:var(--muted);font-size:.95rem}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.pill{font:700 11px var(--body);letter-spacing:.08em;text-transform:uppercase;padding:6px 11px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.more{align-self:flex-start;margin-top:auto;padding:8px 14px;border-radius:999px;border:1.5px solid var(--accent);background:transparent;color:var(--accent);font-weight:700;font-size:13px}
+.more:hover{background:var(--accent);color:var(--on-accent)}
+.det{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s}
+.det.open{grid-template-rows:1fr}
+.det>div{overflow:hidden;min-height:0}
+.det ul{margin:4px 0 6px;padding-left:18px;font-size:.92rem;color:var(--fg)}
+.det li{margin-bottom:4px}
+/* services */
+.svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px}
+.group{padding:20px;background:var(--surface);border:1px solid var(--line);border-radius:24px}
+.group.prog{background:linear-gradient(160deg,var(--accent-soft),var(--surface));border-color:var(--accent2)}
+.group h3{font:700 1rem var(--display);margin:0 0 12px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{padding:8px 13px;border-radius:999px;border:1.5px solid var(--line);background:var(--bg);font-size:13.5px;font-weight:600;transition:.18s;text-align:left}
+
+.opt[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.paygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px}
+.paycard{display:flex;flex-direction:column;gap:10px;align-items:flex-start;padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}
+.paycard h3{font:700 1.4rem var(--display);margin:0}
+.builder{margin-top:22px;padding:24px;border-radius:28px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow)}
+.builder h3{font:700 1.15rem var(--display);margin:0 0 4px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin:14px 0}
+label{display:block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+input,textarea{width:100%;font:inherit;color:var(--fg);background:var(--bg);border:1.5px solid var(--line);border-radius:14px;padding:11px 14px}
+input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+textarea{min-height:130px;resize:vertical}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:14px}
+.note{font-size:.88rem;color:var(--muted)}
+.pay{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:18px}
+.pay b{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.pay span{padding:8px 14px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:13px}
+/* contact */
+.contact{margin-top:68px;padding:36px;border-radius:32px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+.contact h2{color:#fff}
+.contact p{margin:0 0 18px;opacity:.95}
+.cl{display:flex;flex-wrap:wrap;gap:10px}
+.cb{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;border:0;background:#fff;color:#C2255F;font-weight:700;font-size:14px;max-width:100%;overflow-wrap:anywhere}
+.cb:hover{transform:translateY(-2px)}
+a.cb{text-decoration:none}
+footer{padding-block:28px 48px;text-align:center;color:var(--muted);font-size:.88rem}
+@media (max-width:640px){.hero{padding:40px 22px;border-radius:26px}.contact{padding:26px 20px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+<nav class="nav" aria-label="Main">
+  <span class="logo">✿ Portfolio</span>
+  <a class="l" href="#academic">Academic</a><a class="l" href="#projects">IT Projects</a><a class="l" href="#services">Services</a><a class="l" href="#payment">Payment</a><a class="l" href="#contact">Message</a>
+  <button class="theme" id="theme" aria-label="Switch light or dark theme" title="Light or dark">◐</button>
+</nav>
+
+<header class="hero">
+  <span class="eyebrow">Academic writer · Web developer</span>
+  <h1>Your Name</h1>
+  <p class="lead">I write research papers and academic materials, and I build PHP and MySQL systems for schools, shops and offices. Pick a service below and send me your request.</p>
+  <div class="cta"><a class="btn p" href="#services">Request a service</a><a class="btn s" href="#projects">See my systems</a></div>
+  <div class="stats">
+    <div class="stat"><b id="n-works">5</b><span>Academic works</span></div>
+    <div class="stat"><b id="n-proj">9</b><span>IT projects</span></div>
+    <div class="stat"><b id="n-svc">7</b><span>Service groups</span></div>
+  </div>
+</header>
+
+<section id="academic">
+  <h2>Academic works</h2>
+  <p class="sub">Titles and topics showing the level and range of research I write on. Tap a topic to filter.</p>
+  <div class="chips" id="wfilters" role="group" aria-label="Filter academic works by topic"></div>
+  <div class="grid" id="works"></div>
+</section>
+
+<section id="projects">
+  <h2>IT projects</h2>
+  <p class="sub">Systems built with plain PHP, MySQL and JavaScript. Pick a type, then open a card for its features.</p>
+  <div class="chips" id="pfilters" role="group" aria-label="Filter IT projects by type"></div>
+  <div class="grid" id="projs"></div>
+</section>
+
+<section id="services">
+  <h2>Services offered</h2>
+  <p class="sub">Everything I can help with. Message me for a quote.</p>
+  <div class="svc" id="svc"></div>
+</section>
+
+<section id="payment">
+  <h2>Mode of payment</h2>
+  <p class="sub">Pay by e-wallet or bank transfer.</p>
+  <div class="paygrid">
+    <div class="paycard"><span class="pill">E-wallet</span><h3>GCash</h3></div>
+    <div class="paycard"><span class="pill">Bank</span><h3>GoTyme Bank</h3></div>
+  </div>
+</section>
+
+<section id="contact" class="contact" style="padding-top:36px">
+  <h2>Message me</h2>
+  <p>Send your request or ask for a quote.</p>
+  <div class="cl">
+    <a class="cb" href="https://www.facebook.com/ashley.tumaru" target="_blank" rel="noopener">Message me on Facebook</a>
+    <a class="cb" href="https://t.me/AshHiraya" target="_blank" rel="noopener">Message me on Telegram</a>
+  </div>
+</section>
+<footer>Made with care · Academic &amp; IT Portfolio</footer>
+</div>
+
+<script>
+const works=[
+["Education","A Phenomenological Inquiry into the Lived Experiences of Remote-Learning Teachers in Post-Pandemic Philippine Higher Education","How teachers made sense of the shift to remote and blended teaching, and what it changed in their practice.",["Phenomenology","Higher education","Qualitative"]],
+["Psychology","Mediating Effects of Digital Literacy on Academic Resilience Among Senior High School Students: A Structural Equation Modeling Approach","Whether digital literacy explains why some students keep performing under pressure.",["SEM","Digital literacy","Quantitative"]],
+["Development Studies","Sustainable Livelihood Frameworks and Community Resilience in Coastal Municipalities: A Mixed-Methods Analysis","How livelihood programs affect a community's ability to recover from economic and climate shocks.",["Mixed methods","Resilience","Community"]],
+["Information Technology","Algorithmic Transparency and Trust Formation in AI-Assisted Decision Support Systems: A Systematic Literature Review","What the literature says about how explainable systems shape user trust.",["Systematic review","AI","Trust"]],
+["Management","Transformational Leadership and Organizational Commitment in Public Sector Institutions: A Multilevel Regression Analysis","The link between leadership style and employee commitment across offices and departments.",["Multilevel regression","Leadership","Public sector"]]
+];
+const projects=[
+["Business","Purchasing System","Purchase requests and purchase orders with user, branch manager, admin and super admin portals.",["Request form with supplier and item lookup, automatic branch-based PR numbers and PO numbers","Branch manager approval before the admin can create a PO","Fills an Excel PR form template for download, with a Composer-free XLSX reader and writer","Monitoring page with monthly Excel export, bulk supplier and pricing import","Login lockout, session checks, password policy, audit and login logs with automatic cleanup"],["PHP","MySQL","PDO","XLSX"],"Deployed","ok"],
+["Business","WorkTrack","Task management and monitoring where employees see assigned tasks, track status and follow progress.",["Superadmin module: login, dashboard, employee accounts, departments and roles","Employee forms planned: overtime, leave, uniform, permit to go, voluntary deduction","Time keeper flow for approved overtime, using payroll cut-off periods","Login lockout with a short cooldown"],["PHP 8","MySQL","phpMyAdmin"],"In development","warn"],
+["Websites","Company Website and Job Portal","Public company website and job vacancy pages with a database-backed admin panel.",["Branch job pages that read from a jobs table joined to categories and branches","Admin panel with branch-scoped access, CSRF protection and audit logging","Job card redesign with Qualifications, Benefits and Products columns","CSR gallery page and a contact page with an application form and embedded branch maps"],["PHP","MySQL","CSS","SMTP email"],"Deployed","ok"],
+["Websites","Fit-to-Fly Source Check","A small web tool that helps a student judge how reliable a health information source is when preparing for flight or simulator training.",[],["HTML","JavaScript"],"Built",""],
+["Business","Inventory Management System","Tracks stock across items, suppliers and branches so a store or warehouse always knows what is on hand.",["Item and category records","Stock in, stock out and adjustments","Low-stock alerts and reorder list","Stock movement history and reports","Excel export of stock reports"],["PHP","MySQL","Roles"],"Available",""],
+["Business","Point of Sale (POS) System","A cashier screen for fast selling, with receipts and daily sales reports for small shops, cafes and stores.",["Product search, barcode input and cart","Cash and e-wallet payment records","Printable receipts and void or refund control","Daily and monthly sales summary","Stock deducted automatically on each sale"],["PHP","MySQL","JavaScript"],"Available",""],
+["School","Student Information and Enrollment System","Student records, enrollment, sections, subjects and grades for a school or training center.",["Student profile and enrollment records","Class sections, schedules and subjects","Grade encoding and report cards","Teacher, registrar and admin accounts"],["PHP","MySQL","PDF and Excel"],"Available",""],
+["Business","Attendance and Payroll System","Employee time in and out, hours, overtime and deductions per cut-off, with payslips.",["Daily time record with late and overtime computation","Leave and overtime requests with approval","Payroll per cut-off period with deductions","Payslip and summary export"],["PHP","MySQL","Excel"],"Available",""],
+["Websites","Online Reservation and Booking System","Customers reserve a room, table, court or service online, and the owner manages the schedule.",["Availability calendar and online booking form","Booking confirmation and status tracking","Admin schedule view and customer list","Payment reference recording"],["PHP","MySQL","JavaScript"],"Available",""]
+];
+const services=[
+["Writing",["Essays","Explanations","Reviewers","Poems"]],
+["Visual materials",["Activity sheets","Infographics","Brochures","PowerPoint presentations"]],
+["Papers and speeches",["Case studies","Summaries","Reflection papers","Speeches"]],
+["Posters and career",["Posters","Slogans","Resume / CV","Synopsis"]],
+["Research",["Thesis","Dissertation","IEE","Chapters 1 to 5"]],
+["Other academic works",["Other academic work (tell me what you need)"]],
+["Programming",["Custom web system (PHP and MySQL)","Inventory system","POS system","School or capstone system","Company or personal website","Admin panel and user roles","Excel import and export","Bug fixes and updates"],true]
+];
+const $=s=>document.querySelector(s);
+function chips(box,labels,onpick){
+  box.innerHTML='';
+  labels.forEach((l,i)=>{const b=document.createElement('button');b.className='fchip';b.textContent=l;b.setAttribute('aria-pressed',i===0?'true':'false');
+    b.onclick=()=>{[...box.children].forEach(c=>c.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');onpick(i===0?null:l)};box.appendChild(b)});
+}
+function el(t,c,h){const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e}
+// works
+function renderWorks(f){const g=$('#works');g.innerHTML='';
+  works.filter(w=>!f||w[0]===f).forEach((w,i)=>{const c=el('article','card');
+    c.innerHTML=`<div class="top"><span class="pill">${w[0]}</span></div><h3>${w[1]}</h3><p>${w[2]}</p><div class="tags">${w[3].map(t=>`<span class="tag">${t}</span>`).join('')}</div>`;g.appendChild(c)})}
+chips($('#wfilters'),['All topics',...works.map(w=>w[0])],renderWorks);renderWorks(null);
+// projects
+function renderProjects(f){const g=$('#projs');g.innerHTML='';
+  projects.filter(p=>!f||p[0]===f).forEach(p=>{const c=el('article','card');
+    c.innerHTML=`<div class="top"><span class="pill">${p[0]}</span><span class="pill ${p[6]}">${p[5]}</span></div><h3>${p[1]}</h3><p>${p[2]}</p><div class="tags">${p[4].map(t=>`<span class="tag">${t}</span>`).join('')}</div>`;
+    if(p[3].length){const d=el('div','det',`<div><ul>${p[3].map(x=>`<li>${x}</li>`).join('')}</ul></div>`);
+      const b=el('button','more','Show features');b.setAttribute('aria-expanded','false');
+      b.onclick=()=>{const o=d.classList.toggle('open');b.setAttribute('aria-expanded',o);b.textContent=o?'Hide features':'Show features'};
+      c.appendChild(d);c.appendChild(b)}
+    g.appendChild(c)})}
+chips($('#pfilters'),['All','Business','School','Websites'],renderProjects);renderProjects(null);
+$('#n-works').textContent=works.length;$('#n-proj').textContent=projects.length;$('#n-svc').textContent=services.length;
+// services + builder
+const sv=$('#svc');
+services.forEach(s=>{const g=el('div','group'+(s[2]?' prog':''),`<h3>${s[0]}</h3>`);const o=el('div','opts');
+  s[1].forEach(n=>o.appendChild(el('span','opt',n)));
+  g.appendChild(o);sv.appendChild(g)});
+// theme
+const root=document.documentElement;
+try{const t=localStorage.getItem('pf-theme');if(t)root.setAttribute('data-theme',t)}catch(e){}
+$('#theme').onclick=()=>{const dark=root.getAttribute('data-theme')?root.getAttribute('data-theme')==='dark':matchMedia('(prefers-color-scheme:dark)').matches;
+  const n=dark?'light':'dark';root.setAttribute('data-theme',n);try{localStorage.setItem('pf-theme',n)}catch(e){}};
+// active nav
+const links=[...document.querySelectorAll('.nav a.l')];
+const ids=['academic','projects','services','payment','contact'];
+function mark(id){links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+id))}
+function onScroll(){
+  const atEnd=window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-8;
+  let cur=null;
+  if(atEnd){cur='contact'}
+  else ids.forEach(i=>{const e=document.getElementById(i);if(e&&e.getBoundingClientRect().top<=window.innerHeight*0.4)cur=i});
+  mark(cur);
+}
+links.forEach(l=>l.addEventListener('click',()=>mark(l.getAttribute('href').slice(1))));
+window.addEventListener('scroll',onScroll,{passive:true});
+window.addEventListener('resize',onScroll);
+onScroll();
+</script>
+
+</body>
+</html>
